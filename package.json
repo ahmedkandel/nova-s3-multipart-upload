@@ -14,6 +14,13 @@
         "laravel-mix": "^1.0"
     },
     "dependencies": {
-        "vue": "^2.5.0"
+        "@uppy/aws-s3-multipart": "^1.8.6",
+        "@uppy/core": "^1.13.2",
+        "@uppy/dashboard": "^1.12.8",
+        "@uppy/image-editor": "^0.1.6",
+        "@uppy/screen-capture": "^1.0.8",
+        "@uppy/webcam": "^1.7.0",
+        "vue": "^2.6.12",
+        "vue-template-compiler": "^2.6.12"
     }
 }

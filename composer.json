@@ -1,13 +1,19 @@
 {
     "name": "ahmedkandel/nova-s3-multipart-upload",
-    "description": "A Laravel Nova resource tool.",
+    "description": "A Laravel Nova s3 multipart upload tool.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "aws",
+        "s3",
+        "upload"
     ],
     "license": "MIT",
+    "authors": [{
+        "name": "Ahmed Kandel"
+    }],
     "require": {
-        "php": ">=7.1.0"
+        "laravel/nova": "^3.0"
     },
     "autoload": {
         "psr-4": {

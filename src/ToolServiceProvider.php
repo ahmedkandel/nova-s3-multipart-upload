@@ -4,7 +4,6 @@ namespace Ahmedkandel\NovaS3MultipartUpload;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova;
 
 class ToolServiceProvider extends ServiceProvider
@@ -20,9 +19,9 @@ class ToolServiceProvider extends ServiceProvider
             $this->routes();
         });
 
-        Nova::serving(function (ServingNova $event) {
-            Nova::script('nova-s3-multipart-upload', __DIR__.'/../dist/js/tool.js');
-            Nova::style('nova-s3-multipart-upload', __DIR__.'/../dist/css/tool.css');
+        Nova::serving(function () {
+            Nova::script('nova-s3-multipart-upload', __DIR__ . '/../dist/js/tool.js');
+            Nova::style('nova-s3-multipart-upload', __DIR__ . '/../dist/css/tool.css');
         });
     }
 
@@ -38,17 +37,8 @@ class ToolServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/nova-s3-multipart-upload')
-                ->group(__DIR__.'/../routes/api.php');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+            ->namespace('Ahmedkandel\NovaS3MultipartUpload\Http\Controllers')
+            ->prefix('/nova-vendor/nova-s3-multipart-upload/{resource}/{resourceId}/{field}')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 }

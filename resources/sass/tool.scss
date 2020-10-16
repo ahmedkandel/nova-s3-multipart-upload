@@ -1,1 +1,146 @@
-// Nova Tool CSS
+// Fonts
+$font-family-base: Nunito,
+system-ui,
+BlinkMacSystemFont,
+-apple-system,
+sans-serif;
+
+// Colors
+$white: #ffffff;
+$black: #22292f;
+$red: #e74444;
+$pomegranate: #ff4b23;
+$orange: #f6a623;
+$yellow: #ffeb3b;
+$green: #21b978;
+$darkgreen: #38a169;
+$blue: #4099de;
+$lightblue: #03a9f4;
+$gray-50: #f6fbff;
+$gray-100: #f4f7fa;
+$gray-100--highlighted: #f1f3f6;
+$gray-200: #eef1f4;
+$gray-250: #e3e7eb;
+$gray-300: #bacad6;
+$gray-400: #bacad6;
+$gray-500: #b3b9bf;
+$gray-600: #b3b9bf;
+$gray-700: #7c858e;
+$gray-800: #7c858e;
+$gray-900: #3c4b5f;
+$highlight: #eef1f4;
+$highlight--dark: #03a9f4;
+
+// Z-index
+$zIndex-negative: -10 !default;
+$zIndex-1: 1 !default;
+$zIndex-2: 11 !default;
+$zIndex-3: 12 !default;
+$zIndex-3: 13 !default;
+$zIndex-4: 14 !default;
+$zIndex-5: 15 !default;
+
+// Uppy
+@import '@uppy/core/src/style.scss';
+@import '@uppy/webcam/src/style.scss';
+@import '@uppy/screen-capture/src/style.scss';
+@import '@uppy/image-editor/src/style.scss';
+@import '@uppy/dashboard/src/style.scss';
+
+// Override Uppy
+.uppy-panel .uppy-Dashboard-inner {
+    width: 100%;
+    background-color: transparent;
+    border: 0 none;
+}
+
+.uppy-panel .uppy-size--md .uppy-Dashboard-AddFiles-title {
+    font-size: 1.5rem;
+    max-width: none;
+}
+
+.uppy-panel .uppy-size--md .uppy-DashboardContent-title,
+.uppy-panel .uppy-size--md .uppy-DashboardContent-back,
+.uppy-panel .uppy-size--md .uppy-DashboardContent-addMore {
+    font-size: 1rem;
+}
+
+.uppy-panel .uppy-DashboardContent-back {
+    color: #{"var(--danger)"};
+    font-weight: 800;
+}
+
+.uppy-panel .uppy-DashboardContent-addMore {
+    color: #{"var(--primary)"};
+    font-weight: 800;
+}
+
+.uppy-panel .uppy-DashboardContent-back:hover,
+.uppy-panel .uppy-DashboardContent-addMore:hover,
+.uppy-panel .uppy-c-btn-link:hover {
+    opacity: 0.5;
+}
+
+.uppy-panel .uppy-Dashboard-FileCard .uppy-DashboardContent-back {
+    display: none;
+}
+
+.uppy-panel .uppy-DashboardTab-btn:hover {
+    background-color: #{"var(--20)"};
+}
+
+.uppy-panel .uppy-DashboardTab-btn:focus,
+.uppy-panel .uppy-DashboardContent-back:focus,
+.uppy-panel .uppy-DashboardContent-addMore:focus {
+    background-color: #{"var(--20)"};
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($blue, 0.4);
+}
+
+.uppy-panel .uppy-c-btn,
+.uppy-panel .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
+    font-size: 1rem;
+    font-weight: 800;
+    border-radius: .5rem;
+}
+
+.uppy-panel .uppy-c-btn-primary,
+.uppy-panel .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
+    background-color: #{"var(--primary)"};
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.uppy-panel .uppy-c-btn-primary:hover,
+.uppy-panel .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover {
+    background-color: #{"var(--primary-dark)"};
+}
+
+.uppy-panel .uppy-DashboardContent-bar,
+.uppy-panel .uppy-StatusBar.is-waiting {
+    border-color: #{"var(--50)"};
+}
+
+// FilesGrid
+.files-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-gap: .75rem;
+    gap: .75rem;
+}
+
+@media (min-width: 992px) {
+
+    .files-grid-2,
+    .files-grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (min-width: 1200px) {
+
+    .files-grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+}

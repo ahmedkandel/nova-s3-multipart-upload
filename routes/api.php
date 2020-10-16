@@ -1,19 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Tool API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you may register API routes for your tool. These routes
-| are loaded by the ServiceProvider of your tool. You're free to add
-| as many additional routes to this file as your tool may require.
-|
-*/
+Route::options('/s3/multipart', 'UploadController@preflightHeader');
+Route::post('/s3/multipart', 'UploadController@createMultipartUpload');
+Route::get('/s3/multipart/{uploadId}/{partNumber}', 'UploadController@prepareUploadPart');
+Route::get('/s3/multipart/{uploadId}', 'UploadController@listParts');
+Route::post('/s3/multipart/{uploadId}/complete', 'UploadController@completeMultipartUpload');
+Route::delete('/s3/multipart/{uploadId}', 'UploadController@abortMultipartUpload');
 
-// Route::get('/endpoint', function (Request $request) {
-//     //
-// });
+Route::get('/files', 'FilesController@index');
+Route::post('/files', 'FilesController@store');
+Route::get('/files/{fileKey}', 'FilesController@download')->where('fileKey', '.*');
+Route::delete('/files/{fileKey}', 'FilesController@destroy')->where('fileKey', '.*');
