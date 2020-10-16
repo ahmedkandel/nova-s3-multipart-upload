@@ -1,6 +1,6 @@
 # Nova S3 Multipart Upload
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload) [![Total Downloads](https://img.shields.io/packagist/dt/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload) [![License](https://img.shields.io/packagist/l/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload/LICENSE.md)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload) [![Total Downloads](https://img.shields.io/packagist/dt/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload) [![License](https://img.shields.io/packagist/l/ahmedkandel/nova-s3-multipart-upload.svg)](https://github.com/ahmedkandel/nova-s3-multipart-upload/blob/master/LICENSE.md)
 
 A Laravel Nova resource tool to upload files directly to Amazon S3. You can (upload | download | delete) single, multiple, small or big files.
 
@@ -8,7 +8,7 @@ A Laravel Nova resource tool to upload files directly to Amazon S3. You can (upl
 
 ### ⚡ Features
 
-- **Secure:** No sensitive data will not be exposed to the front-end including AWS credentials. The uploaded / downloaded files will never pass through your server for extra protection and performance.
+- **Secure:** No sensitive data will be exposed to the front-end including AWS credentials. The uploaded and downloaded files will never pass through your server for extra protection and performance.
 
 - **Flexible:** File information can be stored in model attributes or as an array under a single model attribute or even as relationship.
 
@@ -41,7 +41,7 @@ class Post extends Resource
     }
 }
 ```
-**NB** the `make` method requires a "human readable" name and it will try to guess the attribute name. If you like you may pass the attribute name as a second argument.
+**NB** the `make` method requires a "human readable" name, it will try to guess the attribute name. You may pass the attribute name as a second argument.
 
 **NB** the attribute name is used to store the file_path **OR** file/s information in case of `storeAsArray`/`storeAsMultipleArray` **OR** relationship model/s in case of `hasOne`/`hasMany`.
 
@@ -105,11 +105,11 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
 
 - **File information:**
 
-	- `->storeName($fileNameColumn)` Stores file_name in this attribute / column / Key. You can edit the file name before uploading from the uploader panel.
+	- `->storeName($fileNameColumn)` Stores file_name in this attribute/column/Key. You can edit the file name before uploading from the uploader panel.
 
-	- `->storeSize($fileSizeColumn)` Stores file_size (in bytes) in this attribute / column / Key. The size will be formatted (in KB, MB, ...) on the file card.
+	- `->storeSize($fileSizeColumn)` Stores file_size (in bytes) in this attribute/column/Key. The size will be formatted (in KB, MB, ...) on the file card.
 
-	- `->storeMeta($array)` Stores other metadata and creates UI to handle them from the uploader panel. The `$array` keys are the attributes / columns / keys. e.g.
+	- `->storeMeta($array)` Stores other metadata and creates UI to handle them from the uploader panel. The `$array` keys are the attributes/columns/keys. e.g.
 		```php
         ->storeMeta(
             [
@@ -182,7 +182,7 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
  		```php
         ->translate(
             [
-                'dropPasteImportBoth' => 'Trascina i file qui, incolla, sfoglia %{browseFiles} o %{browseFolders}, importa da',
+                'dropPasteImportBoth' => 'Trascina i file qui, sfoglia %{browseFiles} o %{browseFolders}',
                 'browseFiles' => 'i file',
                 'browseFolders' => 'le cartelle',
                 'myDevice' => 'Dispositivo',
@@ -316,8 +316,8 @@ This package is a resource tool **NOT** a resource field. This means it is only 
 
 ### 📜 Changelog
 
-Please see [CHANGELOG](https://github.com/ahmedkandel/nova-s3-multipart-upload/CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](https://github.com/ahmedkandel/nova-s3-multipart-upload/blob/master/CHANGELOG.md) for more information on what has changed recently.
 
 ### 🤝 License
 
-The MIT License (MIT). Please see [License File](https://github.com/ahmedkandel/nova-s3-multipart-upload/LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](https://github.com/ahmedkandel/nova-s3-multipart-upload/blob/master/LICENSE.md) for more information.
