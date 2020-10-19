@@ -34,7 +34,7 @@ class FilesController
 
         $this->model = $resource->model();
 
-        $this->tool = collect($resource->availablePanelsForDetail($request))
+        $this->tool = collect($resource->availablePanelsForDetail($request, $resource))
             ->whereInstanceOf(NovaS3MultipartUpload::class)
             ->firstWhere('attribute', $request->route('field'));
 
