@@ -26,7 +26,18 @@
         >
             <button
                 type="button"
-                v-if="withMeta.canDownload"
+                @keydown.enter.prevent="viewFile"
+                @click.prevent="viewFile"
+                v-tooltip.click="__('View')"
+                v-if="withMeta.canDownload && withMeta.contentDisposition !== 'download'"
+                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
+            >
+                <icon type="view" view-box="0 0 24 24" width="16" height="16" />
+            </button>
+
+            <button
+                type="button"
+                v-if="withMeta.canDownload && withMeta.contentDisposition !== 'view' "
                 v-tooltip.click="__('Download')"
                 @keydown.enter.prevent="downloadFile"
                 @click.prevent="downloadFile"
@@ -110,10 +121,26 @@ export default {
 
     methods:
     {
+        viewFile()
+        {
+            Nova.request()
+                .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition: 'view' }})
+                .then((response) =>
+                    {
+                        window.open(response.data.temporaryUrl, '_blank');
+                    }
+                )
+                .catch((error) =>
+                    {
+                        Nova.error(error.message);
+                    }
+                );
+        },
+
         downloadFile()
         {
             Nova.request()
-                .get(`${this.apiUri}/${this.fileKey}`)
+                .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition: 'download' }})
                 .then((response) =>
                     {
                         let link = document.createElement('a');

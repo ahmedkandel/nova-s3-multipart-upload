@@ -177,21 +177,25 @@ class FilesController
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return array
      */
-    public function download(NovaRequest $request)
+    public function file(NovaRequest $request)
     {
         $this->init($request);
 
         $this->authorize($request, 'Download');
 
+        $contentDisposition = $request->query('contentDisposition', 'download');
+
         $file = $this->files()->firstWhere('fileKey', $request->route('fileKey'));
 
         abort_unless($file && Storage::disk($this->tool->disk)->exists($file['fileKey']), 404);
+
+        $disposition = $contentDisposition === 'view' ? [] : ['ResponseContentDisposition' => 'attachment; filename="' . ($file['fileName'] ?? basename($file['fileKey'])) . '"'];
 
         return [
             'temporaryUrl' => Storage::disk($this->tool->disk)->temporaryUrl(
                 $file['fileKey'],
                 now()->addMinutes(5),
-                ['ResponseContentDisposition' => 'attachment; filename="' . ($file['fileName'] ?? basename($file['fileKey'])) . '"'],
+                $disposition,
             ),
         ];
     }

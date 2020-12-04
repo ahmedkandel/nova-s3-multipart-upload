@@ -142,6 +142,7 @@ class NovaS3MultipartUpload extends ResourceTool
                 'canDownload' => $this->canDownload,
                 'canDelete' => $this->canDelete,
                 'multipleFilesRestriction' => ['maxNumberOfFiles' => 1],
+                'contentDisposition' => 'download',
             ]
         );
     }
@@ -504,6 +505,17 @@ class NovaS3MultipartUpload extends ResourceTool
     public function fileManagerSelectionType($string)
     {
         return $this->withMeta(['fileManagerSelectionType' => $string]);
+    }
+
+    /**
+     * The content disposition for the files.
+     *
+     * @param  string  $type  (‘view’, ‘download’, ‘both’)
+     * @return $this
+     */
+    public function contentDisposition($type)
+    {
+        return $this->withMeta(['contentDisposition' => $type]);
     }
 
     /**
