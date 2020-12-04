@@ -1,11 +1,15 @@
 <template>
     <card class="flex item-center overflow-hidden p-4">
-        <div
-            ref="fileIcon"
-            v-tooltip.click="formatedFileMeta"
-            class="flex items-center flex-no-shrink mr-4"
+        <a
+            :href="withMeta.viewResource === true ? fileUrl: null"
         >
-        </div>
+            <div
+                ref="fileIcon"
+                v-tooltip.click="formatedFileMeta"
+                class="flex items-center flex-no-shrink mr-4"
+            >
+            </div>
+        </a>
 
         <div class="flex flex-col justify-center truncate">
             <div>
@@ -63,7 +67,7 @@ import getFileType from "@uppy/utils/lib/getFileType";
 import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
 
 export default {
-    props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
+    props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta", "fileUrl"],
 
     data()
     {

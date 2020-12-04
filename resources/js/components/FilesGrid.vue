@@ -12,7 +12,8 @@
                 :file-name="file.fileName"
                 :file-size="file.fileSize"
                 :file-meta="file.fileMeta"
-                :api-uri="apiUri"
+                :file-url="file.fileUrl"
+                :api-uri="file.apiUri"
                 :with-meta="withMeta"
             />
         </div>

@@ -141,6 +141,7 @@ class NovaS3MultipartUpload extends ResourceTool
                 'canUpload' => $this->canUpload,
                 'canDownload' => $this->canDownload,
                 'canDelete' => $this->canDelete,
+                'viewResource' => false,
                 'multipleFilesRestriction' => ['maxNumberOfFiles' => 1],
             ]
         );
@@ -526,6 +527,17 @@ class NovaS3MultipartUpload extends ResourceTool
     public function displayPoweredByUppy($boolean = true)
     {
         return $this->withMeta(['proudlyDisplayPoweredByUppy' => $boolean]);
+    }
+
+    /**
+     * View resource when user press click at the file icon.
+     *
+     * @param  bool  $boolean
+     * @return $this
+     */
+    public function viewResource($boolean = true)
+    {
+        return $this->withMeta(['viewResource' => $boolean]);
     }
 
     /**
