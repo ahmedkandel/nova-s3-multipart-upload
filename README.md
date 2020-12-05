@@ -70,26 +70,39 @@ class Post extends Model
 ### ⚙️ S3 configuration
 
 After creating your S3 bucket and connecting it to your Laravel project, You will need an extra step to configure the S3 bucket CORS policy:
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-  <CORSRule>
-    <AllowedOrigin>http://your-domain.com</AllowedOrigin>
-    <AllowedMethod>GET</AllowedMethod>
-    <AllowedMethod>PUT</AllowedMethod>
-    <MaxAgeSeconds>3000</MaxAgeSeconds>
-    <AllowedHeader>Authorization</AllowedHeader>
-    <AllowedHeader>x-amz-date</AllowedHeader>
-    <AllowedHeader>x-amz-content-sha256</AllowedHeader>
-    <AllowedHeader>content-type</AllowedHeader>
-    <ExposeHeader>ETag</ExposeHeader>
-  </CORSRule>
-  <CORSRule>
-    <AllowedOrigin>*</AllowedOrigin>
-    <AllowedMethod>GET</AllowedMethod>
-    <MaxAgeSeconds>3000</MaxAgeSeconds>
-  </CORSRule>
-</CORSConfiguration>
+```json
+[
+    {
+        "AllowedHeaders": [
+            "Authorization",
+            "x-amz-date",
+            "x-amz-content-sha256",
+            "content-type"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "PUT"
+        ],
+        "AllowedOrigins": [
+            "http://your-website.com"
+        ],
+        "ExposeHeaders": [
+            "ETag"
+        ],
+        "MaxAgeSeconds": 3000
+    },
+    {
+        "AllowedHeaders": [],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": [],
+        "MaxAgeSeconds": 3000
+    }
+]
 ```
 **NB** please replace `http://your-domain.com` with your front-end domain.
 
