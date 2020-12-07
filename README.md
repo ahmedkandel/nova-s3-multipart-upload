@@ -75,14 +75,14 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
 ```json
 [
     {
-	"AllowedOrigins": [
+        "AllowedOrigins": [
             "http://your-website.com"
         ],
         "AllowedMethods": [
             "GET",
             "PUT"
         ],
-	"AllowedHeaders": [
+        "AllowedHeaders": [
             "Authorization",
             "x-amz-date",
             "x-amz-content-sha256",
@@ -94,13 +94,13 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
         "MaxAgeSeconds": 3000
     },
     {
-    	"AllowedOrigins": [
+        "AllowedOrigins": [
             "*"
         ],
-	"AllowedMethods": [
+        "AllowedMethods": [
             "GET"
         ],
-        "AllowedHeaders": [],
+	"AllowedHeaders": [],
         "ExposeHeaders": [],
         "MaxAgeSeconds": 3000
     }
