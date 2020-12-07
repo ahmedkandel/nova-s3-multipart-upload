@@ -69,7 +69,7 @@ class Post extends Model
 
 ### ⚙️ S3 configuration
 
-After creating your S3 bucket and connecting it to your Laravel project, You will need an extra step to configure the S3 bucket C"ross-origin resource sharing (CORS)" with either JSON or XML (note, this is NOT a bucket policy):
+After creating your S3 bucket and connecting it to your Laravel project, You will need an extra step to configure the S3 bucket's "Cross-origin resource sharing (CORS)" field with either JSON or XML (note, this is NOT the "Bucket policy" field):
 
 #### JSON
 ```json
