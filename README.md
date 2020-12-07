@@ -100,7 +100,7 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
         "AllowedMethods": [
             "GET"
         ],
-	"AllowedHeaders": [],
+        "AllowedHeaders": [],
         "ExposeHeaders": [],
         "MaxAgeSeconds": 3000
     }
