@@ -535,9 +535,9 @@ class NovaS3MultipartUpload extends ResourceTool
      * @param  bool  $boolean
      * @return $this
      */
-    public function viewResource($boolean = true)
+    public function linkToResource($boolean = true)
     {
-        return $this->withMeta(['viewResource' => $boolean]);
+        return $this->withMeta(['linkToResource' => $boolean]);
     }
 
     /**

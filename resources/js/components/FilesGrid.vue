@@ -13,7 +13,7 @@
                 :file-size="file.fileSize"
                 :file-meta="file.fileMeta"
                 :file-url="file.fileUrl"
-                :api-uri="file.apiUri"
+                :api-uri="apiUri"
                 :with-meta="withMeta"
             />
         </div>

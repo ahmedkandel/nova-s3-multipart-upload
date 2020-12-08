@@ -93,8 +93,8 @@ class FilesController
                     $data['fileMeta'][$key] = $file[$column] ?? null;
                 }
 
-                if ($this->tool->relationship === 'HasMany' || $this->tool->relationship === 'HasMany') {
-                    $base = config('nova.url') . config('nova.path');
+                if ($this->tool->relationship) {
+                    $base = config('nova.url') . (config('nova.path') === '/' ? '' : config('nova.path'));
                     $url = url("$base/resources/{$this->tool->attribute}/{$file['id']}");
 
                     $data['fileUrl'] = $url;

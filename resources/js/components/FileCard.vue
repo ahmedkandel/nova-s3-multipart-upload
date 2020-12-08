@@ -1,15 +1,11 @@
 <template>
     <card class="flex item-center overflow-hidden p-4">
-        <a
-            :href="withMeta.viewResource === true ? fileUrl: null"
+        <div
+            ref="fileIcon"
+            v-tooltip.click="formatedFileMeta"
+            class="flex items-center flex-no-shrink mr-4"
         >
-            <div
-                ref="fileIcon"
-                v-tooltip.click="formatedFileMeta"
-                class="flex items-center flex-no-shrink mr-4"
-            >
-            </div>
-        </a>
+        </div>
 
         <div class="flex flex-col justify-center truncate">
             <div>
@@ -28,6 +24,17 @@
             v-if="withMeta.canDownload || withMeta.canDelete"
             class="flex item-center ml-auto"
         >
+            <button
+                type="button"
+                v-if="withMeta.linkToResource"
+                v-tooltip.click="__('View')"
+                @keydown.enter.prevent="goToUrl(fileUrl)"
+                @click.prevent="goToUrl(fileUrl)"
+                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center mt-1"
+            >
+                <icon type="view" view-box="0 0 24 24" width="16" height="16" />
+            </button>
+
             <button
                 type="button"
                 v-if="withMeta.canDownload"
@@ -120,11 +127,7 @@ export default {
                 .get(`${this.apiUri}/${this.fileKey}`)
                 .then((response) =>
                     {
-                        let link = document.createElement('a');
-                        link.href = response.data.temporaryUrl;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
+                        this.goToUrl(response.data.temporaryUrl, '_blank');
                     }
                 )
                 .catch((error) =>
@@ -132,6 +135,16 @@ export default {
                         Nova.error(error.message);
                     }
                 );
+        },
+
+        goToUrl(url, target = null)
+        {
+            let link = document.createElement('a');
+            link.href = url;
+            link.target = target;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         },
 
         openRemoveModal()
