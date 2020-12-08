@@ -26,21 +26,23 @@
         >
             <button
                 type="button"
-                @keydown.enter.prevent="viewFile"
-                @click.prevent="viewFile"
+                @keydown.enter.prevent="downloadFile('inline')"
+                @click.prevent="downloadFile('inline')"
                 v-tooltip.click="__('View')"
-                v-if="withMeta.canDownload && withMeta.contentDisposition !== 'download'"
+                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <icon type="view" view-box="0 0 24 24" width="16" height="16" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
             </button>
 
             <button
                 type="button"
-                v-if="withMeta.canDownload && withMeta.contentDisposition !== 'view' "
+                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('attachment')"
                 v-tooltip.click="__('Download')"
-                @keydown.enter.prevent="downloadFile"
-                @click.prevent="downloadFile"
+                @keydown.enter.prevent="downloadFile('attachment')"
+                @click.prevent="downloadFile('attachment')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
                 <icon type="download" view-box="0 0 24 24" width="16" height="16" />
@@ -121,40 +123,25 @@ export default {
 
     methods:
     {
-        viewFile()
+        downloadFile(contentDisposition)
         {
-            Nova.request()
-                .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition: 'view' }})
-                .then((response) =>
-                    {
-                        window.open(response.data.temporaryUrl, '_blank');
-                    }
-                )
-                .catch((error) =>
-                    {
-                        Nova.error(error.message);
-                    }
-                );
-        },
-
-        downloadFile()
-        {
-            Nova.request()
-                .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition: 'download' }})
-                .then((response) =>
-                    {
-                        let link = document.createElement('a');
-                        link.href = response.data.temporaryUrl;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                    }
-                )
-                .catch((error) =>
-                    {
-                        Nova.error(error.message);
-                    }
-                );
+              Nova.request()
+                  .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition }})
+                  .then((response) =>
+                      {
+                          let link = document.createElement('a');
+                          link.href = response.data.temporaryUrl;
+                          link.target = '_blank';
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                      }
+                  )
+                  .catch((error) =>
+                      {
+                          Nova.error(error.message);
+                      }
+                  );
         },
 
         openRemoveModal()

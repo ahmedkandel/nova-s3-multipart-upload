@@ -11,5 +11,5 @@ Route::delete('/s3/multipart/{uploadId}', 'UploadController@abortMultipartUpload
 
 Route::get('/files', 'FilesController@index');
 Route::post('/files', 'FilesController@store');
-Route::get('/files/{fileKey}', 'FilesController@file')->where('fileKey', '.*');
+Route::get('/files/{fileKey}', 'FilesController@download')->where('fileKey', '.*');
 Route::delete('/files/{fileKey}', 'FilesController@destroy')->where('fileKey', '.*');
