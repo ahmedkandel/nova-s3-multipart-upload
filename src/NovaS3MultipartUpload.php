@@ -317,11 +317,13 @@ class NovaS3MultipartUpload extends ResourceTool
 
             $metaColumns[$value['name']] = $key;
 
-            $metaFields[] = [
-                'id' => $key,
-                'name' => $value['name'],
-                'placeholder' => $value['placeholder'] ?? '',
-            ];
+            if ($value['ui'] ?? true) {
+                $metaFields[] = [
+                    'id' => $key,
+                    'name' => $value['name'],
+                    'placeholder' => $value['placeholder'] ?? '',
+                ];
+            }
 
             if (array_key_exists('default', $value)) {
                 $metaValues[$key] = $value['default'];

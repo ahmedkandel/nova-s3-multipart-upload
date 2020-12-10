@@ -159,6 +159,11 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
                 'file_description' => [
                     'name' => 'Description',
                 ],
+                'file_uploaded_at' => [
+                    'name' => 'Uploaded At',
+                    'default' => now(),
+                    'ui' => false,
+                ],
             ]
         )
 		```
