@@ -26,15 +26,13 @@
         >
             <button
                 type="button"
+                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
+                v-tooltip.click="__('View')"
                 @keydown.enter.prevent="downloadFile('inline')"
                 @click.prevent="downloadFile('inline')"
-                v-tooltip.click="__('View')"
-                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <icon type="view" view-box="0 0 22 16" width="16" height="16" />
             </button>
 
             <button
@@ -45,7 +43,7 @@
                 @click.prevent="downloadFile('attachment')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <icon type="download" view-box="0 0 24 24" width="16" height="16" />
+                <icon type="download" view-box="2 2 20 20" width="16" height="16" />
             </button>
 
             <button
@@ -125,23 +123,23 @@ export default {
     {
         downloadFile(contentDisposition)
         {
-              Nova.request()
-                  .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition }})
-                  .then((response) =>
-                      {
-                          let link = document.createElement('a');
-                          link.href = response.data.temporaryUrl;
-                          link.target = '_blank';
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                      }
-                  )
-                  .catch((error) =>
-                      {
-                          Nova.error(error.message);
-                      }
-                  );
+            Nova.request()
+                .get(`${this.apiUri}/${this.fileKey}`, { params: { contentDisposition } })
+                .then((response) =>
+                    {
+                        let link = document.createElement('a');
+                        link.href = response.data.temporaryUrl;
+                        link.target = contentDisposition === 'inline' ? '_blank' : '_self';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                )
+                .catch((error) =>
+                    {
+                        Nova.error(error.message);
+                    }
+                );
         },
 
         openRemoveModal()

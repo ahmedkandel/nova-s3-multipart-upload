@@ -45,6 +45,8 @@ class Post extends Resource
 
 **NB** the attribute name is used to store the file_path **OR** file/s information in case of `storeAsArray`/`storeAsMultipleArray` **OR** relationship model/s in case of `hasOne`/`hasMany`.
 
+**NB** `hasOne`/`hasMany` methods are valid also for `morphOne`/`morphMany`
+
 ------------
 
 In your model class add all the attributes that will be filled to `$fillable`:
@@ -69,14 +71,14 @@ class Post extends Model
 
 ### ⚙️ S3 configuration
 
-After creating your S3 bucket and connecting it to your Laravel project, You will need an extra step to configure the S3 bucket's "Cross-origin resource sharing (CORS)" field with either JSON or XML (note, this is NOT the "Bucket policy" field):
+After creating your S3 bucket and connecting it to your Laravel project, You will need an extra step to configure the S3 bucket's "Cross-origin resource sharing (CORS)" with either JSON or XML (this is NOT the "Bucket policy"):
 
 #### JSON
 ```json
 [
     {
         "AllowedOrigins": [
-            "http://your-website.com"
+            "http://your-domain.com"
         ],
         "AllowedMethods": [
             "GET",
@@ -100,8 +102,6 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
         "AllowedMethods": [
             "GET"
         ],
-        "AllowedHeaders": [],
-        "ExposeHeaders": [],
         "MaxAgeSeconds": 3000
     }
 ]
@@ -115,12 +115,12 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
     <AllowedOrigin>http://your-domain.com</AllowedOrigin>
     <AllowedMethod>GET</AllowedMethod>
     <AllowedMethod>PUT</AllowedMethod>
-    <MaxAgeSeconds>3000</MaxAgeSeconds>
     <AllowedHeader>Authorization</AllowedHeader>
     <AllowedHeader>x-amz-date</AllowedHeader>
     <AllowedHeader>x-amz-content-sha256</AllowedHeader>
     <AllowedHeader>content-type</AllowedHeader>
     <ExposeHeader>ETag</ExposeHeader>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
   </CORSRule>
   <CORSRule>
     <AllowedOrigin>*</AllowedOrigin>
@@ -175,9 +175,9 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
 
 	If you would like to store the file information in separate "child" model that is related to the "main" model attribute defined by `make` method.
 
-	- `->hasOne($fileKeyColumn)` Set the related model attribute that will hold the file_path.
+	- `->hasOne($fileKeyColumn)` Set the related model attribute that will hold the file_path, also valid for `morphOne`.
 
-	- `->hasMany($fileKeyColumn)` Like `hasOne` but allow multiple files.
+	- `->hasMany($fileKeyColumn)` Like `hasOne` but allow multiple files, also valid for `morphMany`.
 
 	- `->refreshListable()` Refresh listable fields `HasOne` and `HasMany` in your resource detail view each time you upload or delete file.
 
@@ -229,6 +229,10 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
         )
 		```
 		**NB** you can get a list of available `$array` key from [here](https://github.com/transloadit/uppy/blob/master/packages/%40uppy/locales/src/en_US.js).
+
+- **File card:**
+
+	- `->contentDisposition($array)` How the browser handles the file download, As `['attachment']` or `['inline']` or both `['inline', 'attachment']`, default is `['attachment']`.
 
 ### ✔️ Example
 

@@ -508,17 +508,6 @@ class NovaS3MultipartUpload extends ResourceTool
     }
 
     /**
-     * The content disposition for the files.
-     *
-     * @param array $types [‘inline’, ‘attachment’]
-     * @return $this
-     */
-    public function contentDisposition(array $types)
-    {
-        return $this->withMeta(['contentDisposition' => $types]);
-    }
-
-    /**
      * The dashboard footer note.
      *
      * @param  string  $string
@@ -549,6 +538,17 @@ class NovaS3MultipartUpload extends ResourceTool
     public function translate($array)
     {
         return $this->withMeta(['locale' => $array]);
+    }
+
+    /**
+     * The S3 ResponseContentDisposition for file download.
+     *
+     * @param  array  $array  [‘inline’, ‘attachment’]
+     * @return $this
+     */
+    public function contentDisposition($array)
+    {
+        return $this->withMeta(['contentDisposition' => $array]);
     }
 
     /**
