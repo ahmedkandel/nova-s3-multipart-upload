@@ -1,4 +1,11 @@
 ### Releases
+- [v1.2.0](https://github.com/ahmedkandel/nova-s3-multipart-upload/releases/tag/v1.2.0) 
+	- Enhancement: Add content disposition [#2](https://github.com/ahmedkandel/nova-s3-multipart-upload/issues/2)
+	- Enhancement: Add S3 CORS configuration in JSON [#5](https://github.com/ahmedkandel/nova-s3-multipart-upload/pull/5)
+	- Enhancement: Add `ui` option to `->storeMeta()` [#8](https://github.com/ahmedkandel/nova-s3-multipart-upload/issues/8)
+	- Enhancement: Add `maxTotalFileSize` option to `restrictions()` [675756a](https://github.com/laravel/nova/commit/675756aded0608086bbf338447ba30c60c09875c)
+	- Enhancement: Add `autoOpen` option to `useImageEditor()` [675756a](https://github.com/laravel/nova/commit/675756aded0608086bbf338447ba30c60c09875c)
+	- Update: Uppy dependencies [675756a](https://github.com/laravel/nova/commit/675756aded0608086bbf338447ba30c60c09875c)
 - [v1.1.0](https://github.com/ahmedkandel/nova-s3-multipart-upload/releases/tag/v1.1.0) 
 	- Update for Nova ^3.12 [de9e45c](https://github.com/laravel/nova/commit/de9e45c63de26b99bc7b4bdea80253c672bb0f5f)
 - [v1.0.0](https://github.com/ahmedkandel/nova-s3-multipart-upload/releases/tag/v1.0.0) 
