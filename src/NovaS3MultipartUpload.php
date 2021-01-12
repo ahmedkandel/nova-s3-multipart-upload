@@ -333,7 +333,10 @@ class NovaS3MultipartUpload extends ResourceTool
 
         $this->fileMetaColumns = $metaColumns;
 
-        return $this->withMeta(['metaFields' => $metaFields, 'metaValues' => $metaValues]);
+        return $this->withMeta([
+            'metaFields' => $metaFields,
+            'metaValues' => $metaValues,
+        ]);
     }
 
     /**
@@ -556,33 +559,36 @@ class NovaS3MultipartUpload extends ResourceTool
     /**
      * Enable Webcam plugin.
      *
-     * @param  bool $boolean
+     * @param  array  $options
      * @return $this
      */
-    public function useWebcam($boolean = true)
+    public function useWebcam($options = [])
     {
-        return $this->withMeta(['useWebcam' => $boolean]);
+        return $this->withMeta(['useWebcam' => true]);
     }
 
     /**
      * Enable Screen Capture plugin.
      *
-     * @param  bool  $boolean
+     * @param  array  $options
      * @return $this
      */
-    public function useScreenCapture($boolean = true)
+    public function useScreenCapture($options = [])
     {
-        return $this->withMeta(['useScreenCapture' => $boolean]);
+        return $this->withMeta(['useScreenCapture' => true]);
     }
 
     /**
      * Enable Image Editor plugin.
      *
-     * @param  bool  $boolean
+     * @param  array  $options
      * @return $this
      */
-    public function useImageEditor($boolean = true)
+    public function useImageEditor($options = [])
     {
-        return $this->withMeta(['useImageEditor' => $boolean]);
+        return $this->withMeta([
+            'useImageEditor' => true,
+            'autoOpenFileEditor' => $options['autoOpen'] ?? false,
+        ]);
     }
 }

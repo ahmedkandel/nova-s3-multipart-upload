@@ -75,6 +75,7 @@ export default {
                 this.uppyInstance.use(Webcam,
                     {
                         title: (this.withMeta.locale && this.withMeta.locale['camera']) || 'Camera',
+                        showVideoSourceDropdown: true,
                         showRecordingLength: true,
                     }
                 );
@@ -119,6 +120,7 @@ export default {
                         ...this.withMeta.nameMetaField || [],
                         ...this.withMeta.metaFields || [],
                     ],
+                    autoOpenFileEditor: this.withMeta.autoOpenFileEditor || false,
                     proudlyDisplayPoweredByUppy: this.withMeta.proudlyDisplayPoweredByUppy || false,
                     note: this.withMeta.note || null,
                 }

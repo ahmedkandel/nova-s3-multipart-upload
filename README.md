@@ -198,6 +198,7 @@ After creating your S3 bucket and connecting it to your Laravel project, You wil
             [
                 'maxFileSize' => 1024 * 1024 * 1024,
                 'minFileSize' => 50 * 1024,
+                'maxTotalFileSize' => 10 * 1024 * 1024 * 1024,
                 'maxNumberOfFiles' => 10,
                 'minNumberOfFiles' => 2,
                 'allowedFileTypes' => [
@@ -343,7 +344,14 @@ e.g. if you would like to allow the user to delete files in his own model (Post 
 
 ### 🔌 Plugins
 
-- **Image Editor:** enable [Uppy Image Editor](https://uppy.io/docs/image-editor/) plugin using `->useImageEditor()` method. The plugin is using the excellent [Cropper.js](https://fengyuanchen.github.io/cropperjs/).
+- **Image Editor:** enable [Uppy Image Editor](https://uppy.io/docs/image-editor/) plugin using `->useImageEditor($array)` method. The plugin is using the excellent [Cropper.js](https://fengyuanchen.github.io/cropperjs/).
+
+	**Options** the method accepts an array of options:
+	```php
+	[
+		'autoOpen' => true,
+	]
+	```
 
 	**NB** the editor will be only activated for image files.
 

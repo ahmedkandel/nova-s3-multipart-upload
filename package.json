@@ -14,12 +14,12 @@
         "laravel-mix": "^1.0"
     },
     "dependencies": {
-        "@uppy/aws-s3-multipart": "^1.8.6",
-        "@uppy/core": "^1.13.2",
-        "@uppy/dashboard": "^1.12.8",
-        "@uppy/image-editor": "^0.1.6",
-        "@uppy/screen-capture": "^1.0.8",
-        "@uppy/webcam": "^1.7.0",
+        "@uppy/aws-s3-multipart": "^1.8.10",
+        "@uppy/core": "^1.15.0",
+        "@uppy/dashboard": "^1.14.0",
+        "@uppy/image-editor": "^0.1.8",
+        "@uppy/screen-capture": "^1.0.11",
+        "@uppy/webcam": "^1.8.2",
         "vue": "^2.6.12",
         "vue-template-compiler": "^2.6.12"
     }
