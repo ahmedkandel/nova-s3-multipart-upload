@@ -85,6 +85,10 @@ class FilesController
             ->map(function ($file) {
                 $data = [];
 
+                if ($this->tool->isNestedAttribute()) {
+                    $data['fileId'] = $file->id;
+                }
+
                 foreach ($this->tool->fileInfoColumns() as $key => $column) {
                     $data[$key] = $file[$column] ?? null;
                 }

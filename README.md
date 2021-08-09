@@ -256,6 +256,14 @@ class User extends Model
 }
 ```
 
+Content disposition:
+- Inline: Show document in the browser.
+- Attachment: Download the document.
+- Resource: Go to document nova resource, only available if you have a relationship with many files.
+```php
+->contentDisposition(['inline', 'resource', 'attachment'])
+```
+
 User resource class:
 ```php
 use Ahmedkandel\NovaS3MultipartUpload\NovaS3MultipartUpload;

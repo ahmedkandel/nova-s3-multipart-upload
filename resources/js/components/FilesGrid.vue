@@ -12,6 +12,8 @@
                 :file-name="file.fileName"
                 :file-size="file.fileSize"
                 :file-meta="file.fileMeta"
+                :file-id="file.fileId"
+                :resource-url="resourceUrl"
                 :api-uri="apiUri"
                 :with-meta="withMeta"
             />
@@ -25,7 +27,7 @@ import FileCard from "./FileCard.vue";
 export default {
     components: {FileCard},
 
-    props: ["apiUri", "withMeta"],
+    props: ["apiUri", "withMeta", "resourceUrl"],
 
     data()
     {

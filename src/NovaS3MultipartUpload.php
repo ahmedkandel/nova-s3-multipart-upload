@@ -546,9 +546,13 @@ class NovaS3MultipartUpload extends ResourceTool
     }
 
     /**
-     * The S3 ResponseContentDisposition for file download.
+     * The S3 ResponseContentDisposition.
+     * 
+     * Inline: Show document in the browser.
+     * Attachment: Download the document.
+     * Resource: Go to document nova resource, only available if you have a relationship with many files.
      *
-     * @param  array  $array  [‘inline’, ‘attachment’]
+     * @param  array  $array  [‘inline’, ‘attachment’, ‘resource’]
      * @return $this
      */
     public function contentDisposition($array)

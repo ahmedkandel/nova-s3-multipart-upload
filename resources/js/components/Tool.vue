@@ -5,6 +5,7 @@
         <files-grid
             v-if="withMeta.canView"
             :api-uri="apiUri"
+            :resource-url="resourceUrl"
             :with-meta="withMeta"
         />
 
@@ -31,6 +32,7 @@ export default {
         return {
             apiUri: `/nova-vendor/nova-s3-multipart-upload/${this.resourceName}/${this.resourceId}/${this.panel.fields[0].attribute}/files`,
             companionUri: `/nova-vendor/nova-s3-multipart-upload/${this.resourceName}/${this.resourceId}/${this.panel.fields[0].attribute}/`,
+            resourceUrl: `${Nova.config.base}/resources/${this.panel.fields[0].attribute}`,
             withMeta: this.panel.fields[0],
             filesQueue: [],
             isSaving: false,
