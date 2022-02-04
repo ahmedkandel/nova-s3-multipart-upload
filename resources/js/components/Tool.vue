@@ -50,14 +50,14 @@ export default {
 
     methods:
     {
-        queueFile(file, response)
+        queueFile(file)
         {
             this.filesQueue.push(
                 {
                     fileId: file.id,
-                    fileKey: response.uploadURL,
+                    fileKey: file.s3Multipart.key,
                     fileName: file.meta.name,
-                    fileSize: file.size,
+                    fileSize: file.size || 0,
                     fileMeta: file.meta,
                 }
             );

@@ -190,7 +190,7 @@ class FilesController
         return [
             'temporaryUrl' => Storage::disk($this->tool->disk)->temporaryUrl(
                 $file['fileKey'],
-                now()->addMinutes(5),
+                now()->addDay(),
                 ['ResponseContentDisposition' => $request->query('contentDisposition', 'attachment') . '; filename="' . ($file['fileName'] ?? basename($file['fileKey'])) . '"'],
             ),
         ];
