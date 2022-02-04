@@ -1,17 +1,27 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "dev": "mix",
+        "watch": "mix watch",
+        "hot": "mix watch --hot",
+        "prod": "mix --production",
+        "format": "prettier --write 'resources/**/*.{css,js,vue}'"
     },
     "devDependencies": {
-        "cross-env": "^5.0.0",
-        "laravel-mix": "^1.0"
+        "autoprefixer": "^10.4.0",
+        "cross-env": "^7.0.3",
+        "laravel-mix": "^6.0.39",
+        "postcss": "^8.4.5",
+        "postcss-dir-pseudo-class": "^6.0.1",
+        "postcss-import": "^14.0.1",
+        "postcss-logical": "^5.0.1",
+        "prettier": "^2.5.1",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.47.0",
+        "sass-loader": "^12.4.0",
+        "vue": "^2.6.14",
+        "vue-loader": "^15.9.8",
+        "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
         "@uppy/aws-s3-multipart": "^1.8.10",
@@ -20,7 +30,6 @@
         "@uppy/image-editor": "^0.1.8",
         "@uppy/screen-capture": "^1.0.11",
         "@uppy/webcam": "^1.8.2",
-        "vue": "^2.6.12",
-        "vue-template-compiler": "^2.6.12"
+        "laravel-nova": "^1.12.3"
     }
 }

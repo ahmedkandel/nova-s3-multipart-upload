@@ -16,6 +16,7 @@ $green: #21b978;
 $darkgreen: #38a169;
 $blue: #4099de;
 $lightblue: #03a9f4;
+$beige: #fef3c7 !default;
 $gray-50: #f6fbff;
 $gray-100: #f4f7fa;
 $gray-100--highlighted: #f1f3f6;
@@ -28,8 +29,10 @@ $gray-600: #b3b9bf;
 $gray-700: #7c858e;
 $gray-800: #7c858e;
 $gray-900: #3c4b5f;
+$white-50: #fafafa !default;
 $highlight: #eef1f4;
 $highlight--dark: #03a9f4;
+$uppy-pink: #db2777;
 
 // Z-index
 $zIndex-negative: -10 !default;
@@ -50,8 +53,8 @@ $zIndex-5: 15 !default;
 // Override Uppy
 .uppy-panel .uppy-Dashboard-inner {
     width: 100%;
-    background-color: transparent;
     border: 0 none;
+    background-color: transparent;
 }
 
 .uppy-panel .uppy-size--md .uppy-Dashboard-AddFiles-title {
