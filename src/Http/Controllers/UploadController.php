@@ -58,6 +58,8 @@ class UploadController
                 'key'    => config("filesystems.disks.{$this->tool->disk}.key"),
                 'secret' => config("filesystems.disks.{$this->tool->disk}.secret"),
             ],
+            'endpoint' => config("filesystems.disks.{$this->tool->disk}.endpoint"),
+            'use_path_style_endpoint' => config("filesystems.disks.{$this->tool->disk}.use_path_style_endpoint"),
             'region' => config("filesystems.disks.{$this->tool->disk}.region"),
             'version' => 'latest',
         ]);
