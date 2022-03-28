@@ -3,7 +3,6 @@
 namespace Ahmedkandel\NovaS3MultipartUpload\Http\Controllers;
 
 use Ahmedkandel\NovaS3MultipartUpload\NovaS3MultipartUpload;
-use Aws\S3\S3Client;
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -19,7 +18,7 @@ class UploadController
     /**
      * S3 client instance.
      *
-     * @var \Aws\S3\S3Client
+     * @var \Aws\S3\S3ClientInterface
      */
     private $s3Client;
 
@@ -36,10 +35,10 @@ class UploadController
     /**
      * Retrieve resource tool and Authorize then create S3Client..
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param \Laravel\Nova\Http\Requests\NovaRequest $request
      * @return void
      */
-    private function init($request)
+    protected function init($request)
     {
         $resource = $request->findResourceOrFail();
 
@@ -53,14 +52,7 @@ class UploadController
 
         abort_unless($this->tool->canUpload, 403);
 
-        $this->s3Client = new S3Client([
-            'credentials' => [
-                'key'    => config("filesystems.disks.{$this->tool->disk}.key"),
-                'secret' => config("filesystems.disks.{$this->tool->disk}.secret"),
-            ],
-            'region' => config("filesystems.disks.{$this->tool->disk}.region"),
-            'version' => 'latest',
-        ]);
+        $this->s3Client = app()->makeWith('novas3client', ['disk' => $this->tool->disk]);
     }
 
     /**
