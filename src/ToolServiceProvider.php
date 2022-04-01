@@ -10,6 +10,19 @@ use Laravel\Nova\Nova;
 
 class ToolServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        parent::register();
+
+        // Construct s3 client for tool
+        $this->app->bind('novas3client', function ($app, $args) {
+            $disk = $args['disk'];
+            $config = $this->formatS3Config(config("filesystems.disks.{$disk}"));
+            return new S3Client($config);
+        });
+    }
+
+
     /**
      * Bootstrap any application services.
      *
@@ -24,13 +37,6 @@ class ToolServiceProvider extends ServiceProvider
         Nova::serving(function () {
             Nova::script('nova-s3-multipart-upload', __DIR__ . '/../dist/js/tool.js');
             Nova::style('nova-s3-multipart-upload', __DIR__ . '/../dist/css/tool.css');
-        });
-
-        // Construct s3 client for tool
-        $this->app->bind('novas3client', function ($app, $args) {
-            $disk = $args['disk'];
-            $config = $this->formatS3Config(config("filesystems.disks.{$disk}"));
-            return new S3Client($config);
         });
     }
 
