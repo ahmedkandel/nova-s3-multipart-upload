@@ -9,14 +9,14 @@
 
         <div class="flex flex-col justify-center truncate">
             <div>
-                {{fileName || fileKey}}
+                {{ fileName || fileKey }}
             </div>
 
             <div
                 v-if="fileSize"
                 class="mt-2 text-80 text-xs font-semibold"
             >
-                {{formatedFileSize}}
+                {{ formatedFileSize }}
             </div>
         </div>
 
@@ -25,46 +25,45 @@
             class="flex item-center ml-auto"
         >
             <button
-                type="button"
                 v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
                 v-tooltip.click="__('View')"
+                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
+                type="button"
                 @keydown.enter.prevent="downloadFile('inline')"
                 @click.prevent="downloadFile('inline')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <icon type="view" view-box="0 0 22 16" width="16" height="16" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="0 0 22 16" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
             </button>
 
             <button
-                type="button"
                 v-if="withMeta.canDownload && withMeta.contentDisposition.includes('attachment')"
                 v-tooltip.click="__('Download')"
+                type="button"
+                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
                 @keydown.enter.prevent="downloadFile('attachment')"
                 @click.prevent="downloadFile('attachment')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <icon type="download" view-box="2 2 20 20" width="16" height="16" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="2 2 20 20" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
             </button>
 
             <button
-                type="button"
                 v-if="withMeta.canDelete"
                 v-tooltip.click="__('Delete')"
-                @keydown.enter.prevent="openRemoveModal"
-                @click.prevent="openRemoveModal"
+                type="button"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
+                @keydown.enter.prevent="removeFile"
+                @click.prevent="removeFile"
             >
-                <icon type="delete" view-box="0 0 20 20" width="16" height="16" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
             </button>
         </div>
-
-        <portal to="modals">
-            <confirm-upload-removal-modal
-                v-if="removeModalOpen"
-                @confirm="removeFile"
-                @close="closeRemoveModal"
-            />
-        </portal>
     </card>
 </template>
 
@@ -75,13 +74,6 @@ import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
 
 export default {
     props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
-
-    data()
-    {
-        return {
-            removeModalOpen: false,
-        };
-    },
 
     mounted()
     {
@@ -142,18 +134,12 @@ export default {
                 );
         },
 
-        openRemoveModal()
-        {
-            this.removeModalOpen = true;
-        },
-
-        closeRemoveModal()
-        {
-            this.removeModalOpen = false;
-        },
-
         removeFile()
         {
+            if(!confirm("Are you sure you want to delete this file?")){
+                return;
+            }
+
             Nova.request()
                 .delete(`${this.apiUri}/${this.fileKey}`)
                 .then((response) =>
@@ -171,11 +157,6 @@ export default {
                 .catch((error) =>
                     {
                         Nova.error(error.message);
-                    }
-                )
-                .then(() =>
-                    {
-                        this.closeRemoveModal();
                     }
                 );
         },
