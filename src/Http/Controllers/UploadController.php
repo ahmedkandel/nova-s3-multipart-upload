@@ -5,6 +5,7 @@ namespace Ahmedkandel\NovaS3MultipartUpload\Http\Controllers;
 use Ahmedkandel\NovaS3MultipartUpload\NovaS3MultipartUpload;
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\ResourceToolElement;
 
 class UploadController
 {
