@@ -43,23 +43,18 @@ class UploadController
     {
         $resource = $request->findResourceOrFail();
 
+        $this->model = $resource->model();
+
         $fields = $resource->availableFields($request)
-                           ->map(
-                               fn($field) => $field instanceof ResourceToolElement
-                                   ? $field->assignedPanel
-                                   : $field
-                           );
+            ->map(
+                fn ($field) => $field instanceof ResourceToolElement
+                    ? $field->assignedPanel
+                    : $field
+            );
 
-        $allPanels = collect($resource->availablePanelsForDetail(
-            $request,
-            $resource,
-            $fields
-        ));
-
-        $this->tool =
-            $allPanels
-                ->whereInstanceOf(NovaS3MultipartUpload::class)
-                ->firstWhere('attribute', $request->route('field'));
+        $this->tool = $fields
+            ->whereInstanceOf(NovaS3MultipartUpload::class)
+            ->firstWhere('attribute', $request->route('field'));
 
         abort_unless($this->tool, 404);
 
