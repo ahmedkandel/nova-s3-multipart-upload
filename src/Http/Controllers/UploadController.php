@@ -43,8 +43,6 @@ class UploadController
     {
         $resource = $request->findResourceOrFail();
 
-        $this->model = $resource->model();
-
         $fields = $resource->availableFields($request)
             ->map(
                 fn ($field) => $field instanceof ResourceToolElement
