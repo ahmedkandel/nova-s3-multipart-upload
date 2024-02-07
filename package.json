@@ -9,9 +9,11 @@
         "format": "prettier --write 'resources/**/*.{css,js,vue}'"
     },
     "devDependencies": {
+        "@uppy/core": "^2.2.0",
         "@vue/compiler-sfc": "^3.2.22",
         "autoprefixer": "^10.4.0",
         "cross-env": "^7.0.3",
+        "laravel-nova-ui": "^0.4.0",
         "laravel-mix": "^6.0.41",
         "postcss": "^8.3.11",
         "postcss-dir-pseudo-class": "^6.0.1",
