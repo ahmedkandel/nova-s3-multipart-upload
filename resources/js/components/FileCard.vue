@@ -32,9 +32,8 @@
                 @click.prevent="downloadFile('inline')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="0 0 22 16" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="0 0 22 16">
+                    <icon-view />
                 </svg>
             </button>
 
@@ -46,8 +45,8 @@
                 @click.prevent="downloadFile('attachment')"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="2 2 20 20" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="2 2 20 20">
+                    <icon-download />
                 </svg>
             </button>
 
@@ -59,8 +58,8 @@
                 @click.prevent="openRemoveModal"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="none" viewBox="0 0 20 20" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="0 0 20 20" stroke="none">
+                    <icon-delete />
                 </svg>
             </button>
         </div>
@@ -71,8 +70,12 @@
 import { render } from 'preact';
 import getFileType from "@uppy/utils/lib/getFileType";
 import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
+import IconView from '@/components/Icons/IconView';
+import IconDownload from '@/components/Icons/IconDownload';
+import IconDelete from '@/components/Icons/IconDelete';
 
 export default {
+    components: { IconView, IconDownload, IconDelete },
     props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
 
     mounted()
