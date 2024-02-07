@@ -48,6 +48,7 @@ class FilesController
 
         abort_unless($this->tool, 404);
     }
+
     /**
      * Authorize user action.
      *
@@ -241,17 +242,23 @@ class FilesController
     private function prepareDataForRemoval($fileKey)
     {
         if ($this->tool->isArray) {
+
             return [$this->tool->attribute => null];
+
         } elseif ($this->tool->isMultipleArray) {
+
             return [
                 $this->tool->attribute => collect($this->model->{$this->tool->attribute})->reject(function ($file) use ($fileKey) {
                     return $file[$this->tool->fileKeyColumn] === $fileKey;
                 })->values(),
             ];
+
         } else {
+
             return collect($this->tool->fileInfoColumns())->concat($this->tool->fileMetaColumns())->mapWithKeys(function ($column) {
                 return [$column => null];
             })->all();
+
         }
     }
 }
