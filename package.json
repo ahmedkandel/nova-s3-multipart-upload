@@ -25,7 +25,6 @@
     },
     "dependencies": {
         "@uppy/aws-s3-multipart": "^2.2.0",
-        "@uppy/core": "^2.2.0",
         "@uppy/image-editor": "^1.1.1",
         "@uppy/screen-capture": "^2.0.6",
         "@uppy/vue": "^0.4.5",
