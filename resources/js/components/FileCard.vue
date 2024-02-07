@@ -54,8 +54,8 @@
                 type="button"
                 v-if="withMeta.canDelete"
                 v-tooltip.click="__('Delete')"
-                @keydown.enter.prevent="openRemoveModal"
-                @click.prevent="openRemoveModal"
+                @keydown.enter.prevent="openDeleteModal"
+                @click.prevent="openDeleteModal"
                 class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="0 0 20 20" stroke="none">
@@ -63,6 +63,22 @@
                 </svg>
             </button>
         </div>
+
+        <portal to="modals">
+            <DeleteResourceModal
+              mode="delete"
+              :show="deleteModalOpen"
+              @confirm="removeFile"
+              @close="closeDeleteModal"
+            >
+              <ModalHeader v-text="__('Delete File')" />
+              <ModalContent>
+                <p class="leading-normal">
+                  {{ __('Are you sure you want to delete this file?') }}
+                </p>
+              </ModalContent>
+            </DeleteResourceModal>
+        </portal>
     </card>
 </template>
 
@@ -73,10 +89,18 @@ import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
 import IconView from '@/components/Icons/IconView';
 import IconDownload from '@/components/Icons/IconDownload';
 import IconDelete from '@/components/Icons/IconDelete';
+import DeleteResourceModal from '@/components/Modals/DeleteResourceModal';
 
 export default {
-    components: { IconView, IconDownload, IconDelete },
+    components: { IconView, IconDownload, IconDelete, DeleteResourceModal },
     props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
+
+    data()
+    {
+        return {
+            deleteModalOpen: false,
+        };
+    },
 
     mounted()
     {
@@ -137,11 +161,18 @@ export default {
                 );
         },
 
+        openDeleteModal()
+        {
+            this.deleteModalOpen = true;
+        },
+
+        closeDeleteModal()
+        {
+            this.deleteModalOpen = false;
+        },
+
         removeFile()
         {
-            if(!confirm("Are you sure you want to delete this file?")){
-                return;
-            }
             Nova.request()
                 .delete(`${this.apiUri}/${this.fileKey}`)
                 .then((response) =>
