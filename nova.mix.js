@@ -20,10 +20,9 @@ class NovaExtension {
       ...(webpackConfig.resolve.alias || {}),
       'laravel-nova': path.join(
         __dirname,
-        '../../vendor/laravel/nova/resources/js/mixins/packages.js'
+        'vendor/laravel/nova/resources/js/mixins/packages.js'
       ),
-      '@': path.join(__dirname, '../../vendor/laravel/nova/resources/js'),
-
+      '@': path.join(__dirname, './vendor/laravel/nova/resources/js'),
     }
 
     webpackConfig.output = {
