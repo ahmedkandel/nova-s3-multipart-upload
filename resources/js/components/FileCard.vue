@@ -24,18 +24,17 @@
             v-if="withMeta.canDownload || withMeta.canDelete"
             class="flex item-center ml-auto"
         >
-            <button
-                type="button"
-                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
-                v-tooltip.click="__('View')"
-                @keydown.enter.prevent="downloadFile('inline')"
-                @click.prevent="downloadFile('inline')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="0 0 22 16">
-                    <icon-view />
-                </svg>
-            </button>
+            <Button
+              v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
+              as="Button"
+              @keydown.enter.prevent="downloadFile('inline')"
+              @click.stop="downloadFile('inline')"
+              v-tooltip.click="__('View')"
+              :aria-label="__('View')"
+              icon="eye"
+              variant="action"
+              class="hover:text-primary-500 dark:hover:text-primary-500"
+            />
 
             <button
                 type="button"
@@ -43,25 +42,24 @@
                 v-tooltip.click="__('Download')"
                 @keydown.enter.prevent="downloadFile('attachment')"
                 @click.prevent="downloadFile('attachment')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
+                class="border text-left appearance-none cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 disabled:cursor-not-allowed inline-flex items-center justify-center bg-transparent border-transparent text-gray-500 dark:text-gray-400 hover:[&:not(:disabled)]:text-primary-500 h-9 w-9 hover:text-primary-500 dark:hover:text-primary-500 v-popper--has-tooltip"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="2 2 20 20">
                     <icon-download />
                 </svg>
             </button>
 
-            <button
-                type="button"
-                v-if="withMeta.canDelete"
-                v-tooltip.click="__('Delete')"
-                @keydown.enter.prevent="openDeleteModal"
-                @click.prevent="openDeleteModal"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" fill="currentColor" viewBox="0 0 20 20" stroke="none">
-                    <icon-delete />
-                </svg>
-            </button>
+            <Button
+              v-if="withMeta.canDelete"
+              as="Button"
+              @keydown.enter.prevent="openDeleteModal"
+              @click.stop="openDeleteModal"
+              v-tooltip.click="__('Delete')"
+              :aria-label="__('Delete')"
+              icon="trash"
+              variant="action"
+              class="hover:text-primary-500 dark:hover:text-primary-500"
+            />
         </div>
 
         <portal to="modals">
@@ -86,13 +84,12 @@
 import { render } from 'preact';
 import getFileType from "@uppy/utils/lib/getFileType";
 import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
-import IconView from '@/components/Icons/IconView';
 import IconDownload from '@/components/Icons/IconDownload';
-import IconDelete from '@/components/Icons/IconDelete';
 import DeleteResourceModal from '@/components/Modals/DeleteResourceModal';
+import { Button } from 'laravel-nova-ui'
 
 export default {
-    components: { IconView, IconDownload, IconDelete, DeleteResourceModal },
+    components: { IconDownload, DeleteResourceModal, Button },
     props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
 
     data()
