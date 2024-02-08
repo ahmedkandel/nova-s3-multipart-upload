@@ -5,6 +5,7 @@ namespace Ahmedkandel\NovaS3MultipartUpload\Http\Controllers;
 use Ahmedkandel\NovaS3MultipartUpload\NovaS3MultipartUpload;
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\ResourceToolElement;
 
 class UploadController
 {
@@ -42,7 +43,14 @@ class UploadController
     {
         $resource = $request->findResourceOrFail();
 
-        $this->tool = collect($resource->availablePanelsForDetail($request, $resource))
+        $fields = $resource->availableFields($request)
+            ->map(
+                fn ($field) => $field instanceof ResourceToolElement
+                    ? $field->assignedPanel
+                    : $field
+            );
+
+        $this->tool = $fields
             ->whereInstanceOf(NovaS3MultipartUpload::class)
             ->firstWhere('attribute', $request->route('field'));
 

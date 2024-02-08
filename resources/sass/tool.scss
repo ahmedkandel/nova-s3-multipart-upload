@@ -50,6 +50,14 @@ $zIndex-5: 15 !default;
 @import '@uppy/image-editor/src/style.scss';
 @import '@uppy/dashboard/src/style.scss';
 
+.uppy-Root {
+    color: rgb(var(--colors-gray-500));
+}
+
+.dark .uppy-Root {
+    color: rgb(var(--colors-gray-400));
+}
+
 // Override Uppy
 .uppy-panel .uppy-Dashboard-inner {
     width: 100%;
@@ -60,8 +68,11 @@ $zIndex-5: 15 !default;
 .uppy-panel .uppy-size--md .uppy-Dashboard-AddFiles-title {
     font-size: 1.5rem;
     max-width: none;
+    color: rgba(var(--colors-gray-500));
 }
-
+.dark .uppy-Dashboard-AddFiles-title {
+    color: rgba(var(--colors-gray-400));
+}
 .uppy-panel .uppy-size--md .uppy-DashboardContent-title,
 .uppy-panel .uppy-size--md .uppy-DashboardContent-back,
 .uppy-panel .uppy-size--md .uppy-DashboardContent-addMore {
@@ -69,12 +80,12 @@ $zIndex-5: 15 !default;
 }
 
 .uppy-panel .uppy-DashboardContent-back {
-    color: #{"var(--danger)"};
+    color: rgb(var(--colors-rose-600));
     font-weight: 800;
 }
 
 .uppy-panel .uppy-DashboardContent-addMore {
-    color: #{"var(--primary)"};
+    color: rgb(var(--colors-primary-600));
     font-weight: 800;
 }
 
@@ -109,20 +120,32 @@ $zIndex-5: 15 !default;
 
 .uppy-panel .uppy-c-btn-primary,
 .uppy-panel .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload {
-    background-color: #{"var(--primary)"};
+    background-color: rgb(var(--colors-primary-600));
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .uppy-panel .uppy-c-btn-primary:hover,
 .uppy-panel .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover {
-    background-color: #{"var(--primary-dark)"};
+    background-color: rgba(var(--colors-gray-900), 0.6)
 }
 
 .uppy-panel .uppy-DashboardContent-bar,
-.uppy-panel .uppy-StatusBar.is-waiting {
-    border-color: #{"var(--50)"};
+.uppy-panel .uppy-StatusBar.is-waiting,
+.uppy-StatusBar {
+    background-color: var(--colors-gray-100);
+    border-color: rgb(var(--colors-primary-600));
 }
 
+.dark .uppy-panel .uppy-DashboardContent-bar,
+.dark .uppy-panel .uppy-StatusBar.is-waiting,
+.dark .uppy-StatusBar,
+.dark .uppy-StatusBar::before {
+    background-color: rgba(var(--colors-gray-900), 0.6);
+}
+
+.uppy-StatusBar.is-waiting .uppy-StatusBar-actions {
+    background-color:transparent;
+}
 // FilesGrid
 .files-grid {
     display: grid;

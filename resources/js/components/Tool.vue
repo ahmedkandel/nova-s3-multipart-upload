@@ -39,12 +39,14 @@ export default {
 
     watch:
     {
-        filesQueue: function ()
-        {
-            if (!this.isSaving && this.filesQueue.length)
-            {
-                this.processQueue();
-            }
+        filesQueue: {
+            handler: function (){
+                if (!this.isSaving && this.filesQueue.length)
+                {
+                    this.processQueue();
+                }
+            },
+            deep: true
         },
     },
 

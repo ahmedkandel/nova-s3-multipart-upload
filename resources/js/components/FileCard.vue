@@ -24,46 +24,57 @@
             v-if="withMeta.canDownload || withMeta.canDelete"
             class="flex item-center ml-auto"
         >
-            <button
-                type="button"
-                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
-                v-tooltip.click="__('View')"
-                @keydown.enter.prevent="downloadFile('inline')"
-                @click.prevent="downloadFile('inline')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
-            >
-                <icon type="view" view-box="0 0 22 16" width="16" height="16" />
-            </button>
+            <Button
+              v-if="withMeta.canDownload && withMeta.contentDisposition.includes('inline')"
+              as="Button"
+              @keydown.enter.prevent="downloadFile('inline')"
+              @click.stop="downloadFile('inline')"
+              v-tooltip.click="__('View')"
+              :aria-label="__('View')"
+              icon="eye"
+              variant="action"
+              class="hover:text-primary-500 dark:hover:text-primary-500"
+            />
 
-            <button
-                type="button"
-                v-if="withMeta.canDownload && withMeta.contentDisposition.includes('attachment')"
-                v-tooltip.click="__('Download')"
-                @keydown.enter.prevent="downloadFile('attachment')"
-                @click.prevent="downloadFile('attachment')"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
-            >
-                <icon type="download" view-box="2 2 20 20" width="16" height="16" />
-            </button>
+            <Button
+              v-if="withMeta.canDownload && withMeta.contentDisposition.includes('attachment')"
+              as="Button"
+              @keydown.enter.prevent="downloadFile('attachment')"
+              @click.stop="downloadFile('attachment')"
+              v-tooltip.click="__('Download')"
+              :aria-label="__('Download')"
+              icon="arrow down tray"
+              variant="action"
+              class="hover:text-primary-500 dark:hover:text-primary-500"
+            />
 
-            <button
-                type="button"
-                v-if="withMeta.canDelete"
-                v-tooltip.click="__('Delete')"
-                @keydown.enter.prevent="openRemoveModal"
-                @click.prevent="openRemoveModal"
-                class="cursor-pointer dim btn btn-link text-primary inline-flex items-center ml-3"
-            >
-                <icon type="delete" view-box="0 0 20 20" width="16" height="16" />
-            </button>
+            <Button
+              v-if="withMeta.canDelete"
+              as="Button"
+              @keydown.enter.prevent="openDeleteModal"
+              @click.stop="openDeleteModal"
+              v-tooltip.click="__('Delete')"
+              :aria-label="__('Delete')"
+              icon="trash"
+              variant="action"
+              class="hover:text-primary-500 dark:hover:text-primary-500"
+            />
         </div>
 
         <portal to="modals">
-            <confirm-upload-removal-modal
-                v-if="removeModalOpen"
-                @confirm="removeFile"
-                @close="closeRemoveModal"
-            />
+            <DeleteResourceModal
+              mode="delete"
+              :show="deleteModalOpen"
+              @confirm="removeFile"
+              @close="closeDeleteModal"
+            >
+              <ModalHeader v-text="__('Delete File')" />
+              <ModalContent>
+                <p class="leading-normal">
+                  {{ __('Are you sure you want to delete this file?') }}
+                </p>
+              </ModalContent>
+            </DeleteResourceModal>
         </portal>
     </card>
 </template>
@@ -72,14 +83,17 @@
 import { render } from 'preact';
 import getFileType from "@uppy/utils/lib/getFileType";
 import getFileTypeIcon from "@uppy/dashboard/lib/utils/getFileTypeIcon";
+import DeleteResourceModal from '@/components/Modals/DeleteResourceModal';
+import { Button } from 'laravel-nova-ui'
 
 export default {
+    components: { DeleteResourceModal, Button },
     props: ["fileKey", "fileName", "fileSize", "fileMeta", "apiUri", "withMeta"],
 
     data()
     {
         return {
-            removeModalOpen: false,
+            deleteModalOpen: false,
         };
     },
 
@@ -142,14 +156,14 @@ export default {
                 );
         },
 
-        openRemoveModal()
+        openDeleteModal()
         {
-            this.removeModalOpen = true;
+            this.deleteModalOpen = true;
         },
 
-        closeRemoveModal()
+        closeDeleteModal()
         {
-            this.removeModalOpen = false;
+            this.deleteModalOpen = false;
         },
 
         removeFile()
@@ -171,11 +185,6 @@ export default {
                 .catch((error) =>
                     {
                         Nova.error(error.message);
-                    }
-                )
-                .then(() =>
-                    {
-                        this.closeRemoveModal();
                     }
                 );
         },
